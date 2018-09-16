@@ -75,6 +75,7 @@ void LiveorDead(int *array[])
 	int i,j;
 	int lifeCnt=0; // 생명 근처 생명 개수
 	int checkArr = _msize(array) / sizeof(array);	// 범위 체크 변수, _misze() : malloc으로 할당한 메모리 크기 구할 수 있음
+	
 	for(i=0;i<checkArr;i++)	
 	{
 		for(j=0;j<checkArr;j++)
@@ -83,7 +84,8 @@ void LiveorDead(int *array[])
 					lifeCnt++;
 		}
 	}
-	IsAlive(array, lifeCnt);
+	// IsAlive(array, lifeCnt);
+
 }
 
 void IsAlive(int *array[], int lifeCnt)
@@ -100,6 +102,6 @@ void IsAlive(int *array[], int lifeCnt)
 	=> 생명개수 -1 로 적용해야할듯? ==> 자리 판별시 본인도 판별됨
 	*/
 
-	printf("%d ",lifeCnt);
+	// printf("%d ",lifeCnt);
 	printf("!!!!함수 제작필요");
 }

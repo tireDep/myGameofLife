@@ -9,7 +9,9 @@ void LiveorDead(int *array[])
 	for (i = 0; i < checkArr; i++)
 	{
 		for (j = 0; j < checkArr; j++)
+		{
 			IsAlive(array, j, i);
+		}
 	}
 }
 
@@ -20,6 +22,10 @@ void IsAlive(int *array[], int xGrid, int yGrid)
 	-10 / 00 / 10
 	-1-1 / 0-1 / 1-1
 
+	00/10/20
+	01/11/21
+	02/12/22
+
 	생명 판단 규칙
 	- 3개 : 생존
 	- 2개 : 상태유지
@@ -29,14 +35,22 @@ void IsAlive(int *array[], int xGrid, int yGrid)
 
 	int i, j;	// 반복문 변수
 	int lifeCnt = 0; // 생명 근처 생명 개수
+	int checkArr = (_msize(array)) / (sizeof(array));
 
 	for (i = yGrid - 1; i <= yGrid + 1; i++)
 	{
 		for (j = xGrid - 1; j <= xGrid + 1; j++)
 		{
-			if (array[i][j] == 1)
-				lifeCnt++;
+			if ((i>=0 && i<=checkArr) && (j >= 0 && j <= checkArr))
+			{
+				if (array[i][j] == 1)
+					lifeCnt++;
+			}
+			else
+				continue;
 		}
+
+		bool asdf = true;
 	}
 
 	// printf("!!!!함수 제작필요");

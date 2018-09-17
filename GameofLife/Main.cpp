@@ -63,9 +63,13 @@ int main()
 	printf("반복할 세대수를 입력하시오. >> ");
 	scanf_s("%d", &inputCnt);	
 
-	for(i=0;i<inputCnt;i++)	//	반복할 세대수 만큼 진행
+	puts("12345678901238765464");
+	for (i = 0; i < inputCnt; i++)	//	반복할 세대수 만큼 진행
+	{
 		LiveorDead(field);
-	
+	}
+	puts("12345678901238765464");
+
 	for (i = 0; i < size; i++)
 		free(field[i]);
 	free(field);

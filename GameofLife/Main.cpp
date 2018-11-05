@@ -28,7 +28,7 @@ int main()
 	while(1)
 	{
 		printf("생명의 위치를 입력하시오.(단, x,y형태로 입력할 것, 좌표값이 음수면 종료) >> ");
-		scanf_s("%d,%d",&xgrid, &ygrid);
+		scanf_s("%d,%d",&ygrid, &xgrid);
 		if(xgrid<0 || ygrid<0)
 		{
 			printf("입력을 종료합니다.");
@@ -49,26 +49,24 @@ int main()
 	}
 
 	puts("- 입력한 생명들 -");
-	for(i=0;i<size;i++)
-	{
-		for(j=0;j<size;j++)
-		{
-			printf("%d ",field[i][j]);
-		}
-		puts("");
-	}
+	Display(field);
 	// 생명 위치 입력&출력(후에 수정해보기)
 
 	int inputCnt;	// 입력받을 세대수 변수
 	printf("반복할 세대수를 입력하시오. >> ");
 	scanf_s("%d", &inputCnt);	
 
-	puts("12345678901238765464");
 	for (i = 0; i < inputCnt; i++)	//	반복할 세대수 만큼 진행
 	{
 		LiveorDead(field);
+		Display(field);
+		puts("");
+		// system("cls");
 	}
-	puts("12345678901238765464");
+
+	puts("\n최종 결과");
+	Display(field);
+	// n세대 지난 후 확인용 출력
 
 	for (i = 0; i < size; i++)
 		free(field[i]);

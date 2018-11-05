@@ -41,7 +41,7 @@ void IsAlive(int *array[], int xGrid, int yGrid)
 	{
 		for (j = xGrid - 1; j <= xGrid + 1; j++)
 		{
-			if ((i>=0 && i<=checkArr) && (j >= 0 && j <= checkArr))
+			if ((i>=0 && i<checkArr) && (j >= 0 && j <checkArr))
 			{
 				if (array[i][j] == 1)
 					lifeCnt++;
@@ -49,9 +49,33 @@ void IsAlive(int *array[], int xGrid, int yGrid)
 			else
 				continue;
 		}
-
-		bool asdf = true;
 	}
 
-	// printf("!!!!함수 제작필요");
+	// LIfeCheck();
+	{
+		if (lifeCnt -1 >= 2)
+			array[yGrid][xGrid] = 1;
+		else
+			array[yGrid][xGrid] = 0;
+		lifeCnt = 0;
+	}
+
+}
+
+void Display(int *array[])
+{
+	int checkArr = (_msize(array)) / (sizeof(array));
+
+	for (int y = 0; y < checkArr; y++)
+	{
+		for (int x = 0; x < checkArr; x++)
+		{
+			// printf("%d ", field[i][j]);
+			if (array[y][x] == 1)
+				printf("■");
+			else
+				printf("□");
+		}
+		puts("");
+	}
 }

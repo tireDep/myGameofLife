@@ -3,76 +3,38 @@
 
 int main()
 {
-	int size; // 격자 크기 변수
-	int i, j; // 반복문 변수
+	LifeCell lifeCell;	// 변수 선언
 	
 	printf("격자 크기를 입력하시오 >>");
-	scanf_s("%d",&size);
-	
-	// int *field = (int *) malloc(sizeof(int)*size); 1차원 배열
-	
-	int **field = (int **)malloc(sizeof(int *)*size);
-	for(i=0;i<size;i++)
-		field[i] = (int *)malloc(sizeof(int)*size);	// *field로 하면 에러남
-		// 2차원 배열 생성
-	
-	for(i=0;i<size;i++)
-	{
-		for (j = 0; j < size; j++)
-			field[i][j] = 0;
-	} // 초기화
-// 격자생성
-
-	int xgrid = 0, ygrid = 0; // 좌표값 변수, 실수로 1개만 입력했을 경우, 에러메시지를 띄우기 위해서 설정함
-
-	while(1)
-	{
-		printf("생명의 위치를 입력하시오.(단, x,y형태로 입력할 것, 좌표값이 음수면 종료) >> ");
-		scanf_s("%d,%d",&ygrid, &xgrid);
-		if(xgrid<0 || ygrid<0)
-		{
-			printf("입력을 종료합니다.");
-			puts("");
-			break;
-		}
-		if(xgrid>size || ygrid>size || xgrid ==0 || ygrid == 0)
-		{
-			printf("올바른 입력방법이 아닙니다.");
-			xgrid = 0;
-			ygrid = 0;	// 에러 방지를 위한 변수 초기화
-			continue;
-		}
-		field[--ygrid][--xgrid] = 1;	// 배열 범위는 0~n-1, 입력은 편한 이해를 위해서 1~n으로 받기 때문
-
-		xgrid = 0;
-		ygrid = 0;	// 에러 방지를 위한 변수 초기화
-	}
+	lifeCell.SetSize();	// 격자 크기
+	lifeCell.SetField();	// 격자 설정
+	lifeCell.InputCell();	// 생명 입력 받음
 
 	puts("- 입력한 생명들 -");
-	Display(field);
-	// 생명 위치 입력&출력(후에 수정해보기)
+	lifeCell.Display();
 
 	int inputCnt;	// 입력받을 세대수 변수
-	printf("반복할 세대수를 입력하시오. >> ");
+	printf("\n반복할 세대수를 입력하시오. >> ");
 	scanf_s("%d", &inputCnt);	
 
-	for (i = 0; i < inputCnt; i++)	//	반복할 세대수 만큼 진행
+	for (int i = 0; i < inputCnt + 1; i++)	//	반복할 세대수 만큼 진행 -> 0세대부터 시작하기 때문에 +1
 	{
-		LiveorDead(field);
-		Display(field);
+		system("cls");	// 화면 삭제
+		printf("- %d세대 -\n", i);
+		lifeCell.LiveorDead();
+		lifeCell.Display();
 		puts("");
-		// system("cls");
+		Sleep(1000);
+
+		if(inputCnt!=i)	// 맨 마지막 세대에서는 값을 변환할 필요 x
+			lifeCell.Change();
 	}
 
-	puts("\n최종 결과");
-	Display(field);
+	system("cls");	// 화면 삭제
+	puts("\n- 최종 결과 -");
+	lifeCell.Display();
 	// n세대 지난 후 확인용 출력
-
-	for (i = 0; i < size; i++)
-		free(field[i]);
-	free(field);
-	// 메모리 해제
-	
-	printf("- 프로그램 종료 -\n\n");
+	lifeCell.Free();
+	printf("\n프로그램 종료 \n\n");
 	return 0;
 }
